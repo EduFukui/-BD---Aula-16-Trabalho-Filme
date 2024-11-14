@@ -1,0 +1,257 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 15.5
+-- Dumped by pg_dump version 15.5
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: contexto_sociocultural; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.contexto_sociocultural (
+    id_contexto_sociocultural numeric(15,0) NOT NULL,
+    fk_familia_id_familia numeric(15,0),
+    fk_personagem_id_personagem numeric(15,0),
+    lugar character(99),
+    classe_social character(99),
+    etnia_contexto_sociocultural character(99),
+    cultura character(99)
+);
+
+
+ALTER TABLE public.contexto_sociocultural OWNER TO postgres;
+
+--
+-- Name: familia; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.familia (
+    id_familia numeric(15,0) NOT NULL,
+    nome_familia character(99),
+    descricao_familia character(99)
+);
+
+
+ALTER TABLE public.familia OWNER TO postgres;
+
+--
+-- Name: membrofamilia_tem; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.membrofamilia_tem (
+    fk_personagem_id_personagem numeric(15,0),
+    fk_familia_id_familia numeric(15,0),
+    parentesco character(99),
+    funcao character(99)
+);
+
+
+ALTER TABLE public.membrofamilia_tem OWNER TO postgres;
+
+--
+-- Name: personagem; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.personagem (
+    id_personagem numeric(15,0) NOT NULL,
+    fk_tratamento_id_tratamento numeric(15,0),
+    fk_relacao_id_relacao numeric(15,0),
+    nome_personagem character(20),
+    idade numeric(3,0),
+    etnia_personagem character(20),
+    personalidade character(99),
+    profissao character(99),
+    conflito character(99),
+    genero character(20)
+);
+
+
+ALTER TABLE public.personagem OWNER TO postgres;
+
+--
+-- Name: relacao; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.relacao (
+    id_relacao numeric(15,0) NOT NULL,
+    tipo_de_relacao character(99)
+);
+
+
+ALTER TABLE public.relacao OWNER TO postgres;
+
+--
+-- Name: tratamento; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.tratamento (
+    id_tratamento numeric(15,0) NOT NULL,
+    descricao character(99),
+    nome_tratamento character(99)
+);
+
+
+ALTER TABLE public.tratamento OWNER TO postgres;
+
+--
+-- Data for Name: contexto_sociocultural; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.contexto_sociocultural (id_contexto_sociocultural, fk_familia_id_familia, fk_personagem_id_personagem, lugar, classe_social, etnia_contexto_sociocultural, cultura) FROM stdin;
+4545	2134	8652315865467	orlando                                                                                            	ricos                                                                                              	branco                                                                                             	americana                                                                                          
+\.
+
+
+--
+-- Data for Name: familia; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.familia (id_familia, nome_familia, descricao_familia) FROM stdin;
+2134	Armitage                                                                                           	manipuladora                                                                                       
+\.
+
+
+--
+-- Data for Name: membrofamilia_tem; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.membrofamilia_tem (fk_personagem_id_personagem, fk_familia_id_familia, parentesco, funcao) FROM stdin;
+8652315865467	2134	filha                                                                                              	cacadora                                                                                           
+\.
+
+
+--
+-- Data for Name: personagem; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.personagem (id_personagem, fk_tratamento_id_tratamento, fk_relacao_id_relacao, nome_personagem, idade, etnia_personagem, personalidade, profissao, conflito, genero) FROM stdin;
+8652315865467	1234	314	Chris               	24	Moreno              	desconfiado                                                                                        	fotografo                                                                                          	mae que morreu                                                                                     	masculino           
+\.
+
+
+--
+-- Data for Name: relacao; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.relacao (id_relacao, tipo_de_relacao) FROM stdin;
+314	amor                                                                                               
+\.
+
+
+--
+-- Data for Name: tratamento; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.tratamento (id_tratamento, descricao, nome_tratamento) FROM stdin;
+1234	abusivo                                                                                            	presa                                                                                              
+\.
+
+
+--
+-- Name: contexto_sociocultural contexto_sociocultutural_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contexto_sociocultural
+    ADD CONSTRAINT contexto_sociocultutural_pkey PRIMARY KEY (id_contexto_sociocultural);
+
+
+--
+-- Name: familia familia_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.familia
+    ADD CONSTRAINT familia_pkey PRIMARY KEY (id_familia);
+
+
+--
+-- Name: personagem personagem_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.personagem
+    ADD CONSTRAINT personagem_pkey PRIMARY KEY (id_personagem);
+
+
+--
+-- Name: relacao relacao_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.relacao
+    ADD CONSTRAINT relacao_pkey PRIMARY KEY (id_relacao);
+
+
+--
+-- Name: tratamento tratamento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tratamento
+    ADD CONSTRAINT tratamento_pkey PRIMARY KEY (id_tratamento);
+
+
+--
+-- Name: contexto_sociocultural fk_contexto_sociocultutural_2; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contexto_sociocultural
+    ADD CONSTRAINT fk_contexto_sociocultutural_2 FOREIGN KEY (fk_familia_id_familia) REFERENCES public.familia(id_familia) ON DELETE RESTRICT;
+
+
+--
+-- Name: contexto_sociocultural fk_contexto_sociocultutural_3; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contexto_sociocultural
+    ADD CONSTRAINT fk_contexto_sociocultutural_3 FOREIGN KEY (fk_personagem_id_personagem) REFERENCES public.personagem(id_personagem) ON DELETE RESTRICT;
+
+
+--
+-- Name: membrofamilia_tem fk_membrofamilia_tem_1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.membrofamilia_tem
+    ADD CONSTRAINT fk_membrofamilia_tem_1 FOREIGN KEY (fk_personagem_id_personagem) REFERENCES public.personagem(id_personagem);
+
+
+--
+-- Name: membrofamilia_tem fk_membrofamilia_tem_2; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.membrofamilia_tem
+    ADD CONSTRAINT fk_membrofamilia_tem_2 FOREIGN KEY (fk_familia_id_familia) REFERENCES public.familia(id_familia);
+
+
+--
+-- Name: personagem fk_personagem_2; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.personagem
+    ADD CONSTRAINT fk_personagem_2 FOREIGN KEY (fk_tratamento_id_tratamento) REFERENCES public.tratamento(id_tratamento) ON DELETE RESTRICT;
+
+
+--
+-- Name: personagem fk_personagem_3; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.personagem
+    ADD CONSTRAINT fk_personagem_3 FOREIGN KEY (fk_relacao_id_relacao) REFERENCES public.relacao(id_relacao) ON DELETE RESTRICT;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
